@@ -27,15 +27,15 @@
 (defn merge-common
   [entities]
   (->> entities
-       (mapv (fn [x]
-               (if (not (vector? x))
-                 x
-                 (let [common (first x)]
-                   (mapv (fn [data-or-name]
-                           (if (keyword? data-or-name)
-                             data-or-name
-                             (merge common data-or-name)))
-                         (rest x))))))
+       (map (fn [x]
+              (if (not (vector? x))
+                x
+                (let [common (first x)]
+                  (map (fn [data-or-name]
+                         (if (keyword? data-or-name)
+                           data-or-name
+                           (merge common data-or-name)))
+                       (rest x))))))
        flatten
        (into [])))
 
