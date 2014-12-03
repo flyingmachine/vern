@@ -65,7 +65,8 @@ And here's an example of processing the fixture:
              {:name "gromit"  :id 2}]
 
             :permissions
-            [[{:endpoint [:endpoints :wallace]}
+            [;; these permissions belong to wallace
+             [{:endpoint [:endpoints :wallace]}
 
               :wallace-read
               {:name "read"  :id 10}
@@ -73,6 +74,7 @@ And here's an example of processing the fixture:
               :wallace-write
               {:name "write" :id 11}]
 
+             ;; these permissions belong to gromit
              [{:endpoint [:endpoints :gromit]}
 
               :gromit-read
