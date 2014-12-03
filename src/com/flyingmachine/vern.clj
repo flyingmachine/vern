@@ -6,9 +6,9 @@
     m
     (reduce into (map (fn [[k v]] {k (f k v)}) m))))
 
-(defn assoc-processed-vals
+(defn replace-in
   [processed x]
-  (mapval (fn [k v] (if (vector? v) (get-in processed v) v))
+  (mapval (fn [k v] (if (sequential? v) (get-in processed v) v))
           x))
 
 (defn name-entities
@@ -28,7 +28,7 @@
   [entities]
   (->> entities
        (map (fn [x]
-              (if (not (vector? x))
+              (if (not (sequential? x))
                 x
                 (let [common (first x)]
                   (map (fn [data-or-name]
@@ -43,7 +43,7 @@
   [f data]
   (reduce (fn [processed [group-name entities]]
             (reduce (fn [processed entity]
-                      (let [result (f processed group-name (update-in entity [:data] #(assoc-processed-vals processed %)))]
+                      (let [result (f processed group-name (update-in entity [:data] #(replace-in processed %)))]
                         (if-let [entity-name (:name entity)]
                           (assoc-in processed [group-name entity-name] result)
                           processed)))
