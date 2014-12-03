@@ -7,9 +7,9 @@
     (reduce into (map (fn [[k v]] {k (f k v)}) m))))
 
 (defn replace-in
-  [processed x]
-  (mapval (fn [k v] (if (sequential? v) (get-in processed v) v))
-          x))
+  [smap rmap]
+  (mapval (fn [k v] (if (sequential? v) (get-in smap v) v))
+          rmap))
 
 (defn name-entities
   "Look for keys preceding maps"
