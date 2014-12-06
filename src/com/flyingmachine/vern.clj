@@ -28,7 +28,7 @@
   [entities]
   (->> entities
        (map (fn [x]
-              (if (not (sequential? x))
+              (if-not (sequential? x)
                 x
                 (let [common (first x)]
                   (map (fn [data-or-name]
